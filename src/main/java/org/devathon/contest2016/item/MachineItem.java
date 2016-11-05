@@ -20,7 +20,7 @@ public abstract class MachineItem {
 
         item = new ItemStack(material, 1, (short) 0, data);
         ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName(ChatColor.WHITE + name);
+        meta.setDisplayName(ChatColor.RESET + name);
         item.setItemMeta(meta);
     }
 

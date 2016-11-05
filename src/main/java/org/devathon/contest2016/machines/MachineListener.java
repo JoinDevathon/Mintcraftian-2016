@@ -6,6 +6,7 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.devathon.contest2016.DevathonPlugin;
@@ -27,28 +28,28 @@ public class MachineListener implements Listener {
         Player player = event.getPlayer();
         Block block = event.getClickedBlock();
 
-        instance.getMachines().stream().filter(machine -> machine.getLocation().getBlockX() == block.getLocation().getBlockX()
-                && machine.getLocation().getBlockY() == block.getLocation().getBlockY()
-                && machine.getLocation().getBlockZ() == block.getLocation().getBlockZ()
-        ).forEach(machine -> {
-            event.setCancelled(true);
-            machine.use(player);
-        });
+        instance.getMachines().stream().filter(machine -> block != null && instance.getMachine(block.getLocation()) != null).forEach(machine -> machine.use(player));
     }
 
     @EventHandler
     public void onPlace(BlockPlaceEvent event) {
-        Player player = event.getPlayer();
         String name = event.getItemInHand().getItemMeta().getDisplayName();
         if(name == null)
             return;
         switch (ChatColor.stripColor(name.toLowerCase())) {
             case "conveyor belt":
-                instance.getMachines().add(new ConveyorBeltMachine(instance, event.getBlockPlaced().getLocation()));
+                new ConveyorBeltMachine(instance, event.getBlock().getLocation());
                 break;
             case "block dispenser":
-                instance.getMachines().add(new BlockDispenser(instance, event.getBlockPlaced().getLocation()));
+                new BlockDispenser(instance, event.getBlock().getLocation());
                 break;
+        }
+    }
+
+    @EventHandler
+    public void onBreak(BlockBreakEvent event) {
+        if(instance.isMachine(event.getBlock().getLocation())) {
+            instance.getMachines().remove(instance.getMachine(event.getBlock().getLocation()));
         }
     }
 

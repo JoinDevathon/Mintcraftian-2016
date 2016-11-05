@@ -1,6 +1,7 @@
 package org.devathon.contest2016.machines;
 
 import org.bukkit.Location;
+import org.bukkit.inventory.ItemStack;
 import org.devathon.contest2016.DevathonPlugin;
 import org.devathon.contest2016.item.MachineItem;
 
@@ -16,5 +17,6 @@ public abstract class TransportationMachine extends Machine {
         this.maxCapacity = maxCapacity;
     }
 
-    public abstract boolean move();
+    public abstract void addItem(ItemStack item);
+
 }

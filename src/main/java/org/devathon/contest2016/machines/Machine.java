@@ -7,10 +7,10 @@ import org.devathon.contest2016.item.MachineItem;
 
 public abstract class Machine {
 
-    private DevathonPlugin instance;
-    private Location location;
-    private MachineItem item;
-    private String name;
+    protected DevathonPlugin instance;
+    protected Location location;
+    protected MachineItem item;
+    protected String name;
     private int id;
 
     public Machine(DevathonPlugin instance, Location location, MachineItem item, String name, int id) {
@@ -21,13 +21,19 @@ public abstract class Machine {
         this.id = id;
 
         build();
+        instance.getMachines().add(this);
     }
 
-    public abstract void build();
+    public void build() {}
 
     public abstract void use(Player player);
 
-    public abstract void destroy();
+    public void destroy() {
+        instance.getMachines().remove(this);
+    }
+
+    // Updates every tick
+    public abstract void update(long tick);
 
     public Location getLocation() {
         return location;
