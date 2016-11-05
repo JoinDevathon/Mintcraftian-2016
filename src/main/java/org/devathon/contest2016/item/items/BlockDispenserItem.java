@@ -2,23 +2,21 @@ package org.devathon.contest2016.item.items;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.devathon.contest2016.item.MachineItem;
 
-public class ConveyorBeltItem extends MachineItem {
+public class BlockDispenserItem extends MachineItem {
 
-    public ConveyorBeltItem() {
-        super("Conveyor Belt", Material.WOOL, (byte) 15);
+    public BlockDispenserItem() {
+        super("Block Dispenser", Material.DISPENSER);
     }
 
     public void addRecipe() {
-        ItemStack item = this.item.clone();
-        item.setAmount(16);
         ShapedRecipe recipe = new ShapedRecipe(item);
-        recipe.shape("SSS", " I ");
-        recipe.setIngredient('S', Material.WOOL, 15);
+        recipe.shape("IDI", " F ");
         recipe.setIngredient('I', Material.IRON_BLOCK);
+        recipe.setIngredient('D', Material.DISPENSER);
+        recipe.setIngredient('F', Material.FURNACE);
 
         Bukkit.getServer().addRecipe(recipe);
     }

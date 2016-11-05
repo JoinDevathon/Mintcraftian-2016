@@ -1,15 +1,16 @@
 package org.devathon.contest2016.machines;
 
-import org.bukkit.inventory.ItemStack;
+import org.bukkit.Location;
 import org.devathon.contest2016.DevathonPlugin;
+import org.devathon.contest2016.item.MachineItem;
 
 public abstract class TransportationMachine extends Machine {
 
     protected float speed;
     protected int maxCapacity;
 
-    public TransportationMachine(DevathonPlugin instance, ItemStack item, String name, int id, float speed, int maxCapacity) {
-        super(instance, item, name, id);
+    public TransportationMachine(DevathonPlugin instance, Location location, MachineItem item, String name, int id, float speed, int maxCapacity) {
+        super(instance, location, item, name, id);
 
         this.speed = speed;
         this.maxCapacity = maxCapacity;
